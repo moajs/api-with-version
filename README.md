@@ -17,15 +17,15 @@
 -   C = controllers
 
     控制层，主要是负责接口处理结果如何返回，异常如何处理等逻辑控制，不处理具体逻辑
-    
+
 -   S = services
 
     业务逻辑层
-    
+
 -   M = models
 
     模型层
-    
+
 ## 目录结构
 
     app/
@@ -39,40 +39,40 @@
                 ├── receives.js
                 ├── stock.js
                 └── records.js
-    
+
 ## 编写API接口
 API 接口写在 routes/api 下，每个版本对应一个目录，如：v0.1.1
 
-routes/api/sends.js : 
+routes/api/sends.js :
 
     var express = require('express');
     var router = express.Router();
-    
+
     var $ = require('mount-controllers')(__dirname).send_controller;
-    
+
     // 出库请求
     router.post('/show', $.api.show);
-    
+
     // 拣货中
     router.get('/pick/:id', $.api.pick);
-    
+
     // 拣货完成，填写物流信息
     router.get('/pick/:id/picked/', $.api.picked);
-    
+
     // 确认发货提交
     router.post('/out', $.api.out);
-    
+
     module.exports = router;
-    
+
 每个接口的 url ：
 
-    http://127.0.0.1:3000/api/v0.1.1/sends/show
-    
-    http://127.0.0.1:3000/api/v0.1.1/sends/pick/:id
-    
-    http://127.0.0.1:3000/api/v0.1.1/sends/pick/:id/picked/
-    
-    http://127.0.0.1:3000/api/v0.1.1/sends/out
+    http://10.1.1.229:3000/api/v0.1.1/sends/show
+
+    http://10.1.1.229:3000/api/v0.1.1/sends/pick/:id
+
+    http://10.1.1.229:3000/api/v0.1.1/sends/pick/:id/picked/
+
+    http://10.1.1.229:3000/api/v0.1.1/sends/out
 
 根据 RESTful 规范，是不建议将版本号写在 url 中的，然而，将版本号写在 url 可以增加
 可读性等，并且更易于维护
